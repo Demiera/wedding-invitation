@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>John & Hazil — Wedding Invitation</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=EB+Garamond:ital,wght@0,400;1,400&family=Cinzel:wght@400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --sage: #5a6e3f;
+    --sage-light: #7a8f5a;
+    --sage-dark: #3d4e28;
+    --gold: #b8933a;
+    --gold-light: #d4af6a;
+    --gold-pale: #e8d5a3;
+    --cream: #faf7f0;
+    --beige: #f0e8d6;
+    --pastel-yellow: #f5e6a3;
+    --white: #ffffff;
+    --text-dark: #2c2c2a;
+    --text-mid: #4a4a3e;
+    --text-light: #7a7a6a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--cream);
+    font-family: 'EB Garamond', serif;
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ── FLORAL DECORATIONS ── */
+  .petal {
+    position: absolute;
+    border-radius: 50% 0 50% 0;
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  /* ── HERO SECTION ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, #f5f2ea 0%, #ede6d0 40%, #e8dfc8 100%);
+    padding: 60px 20px;
+  }
+
+  .hero-border {
+    position: absolute;
+    inset: 20px;
+    border: 1px solid rgba(184, 147, 58, 0.3);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hero-border::before,
+  .hero-border::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-color: var(--gold);
+    border-style: solid;
+  }
+  .hero-border::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+  .hero-border::after  { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+  /* SVG floral corners */
+  .floral-corner {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .floral-corner.tl { top: 10px; left: 10px; transform: rotate(0deg); }
+  .floral-corner.tr { top: 10px; right: 10px; transform: rotate(90deg); }
+  .floral-corner.bl { bottom: 10px; left: 10px; transform: rotate(270deg); }
+  .floral-corner.br { bottom: 10px; right: 10px; transform: rotate(180deg); }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 700px;
+  }
+
+  .hero-tag {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+
+  .divider-leaf {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 16px 0;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.5s forwards;
+  }
+  .divider-leaf .line { width: 60px; height: 1px; background: var(--gold-light); }
+  .divider-leaf svg { width: 18px; height: 18px; fill: var(--sage-light); }
+
+  .groom-name {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(56px, 10vw, 88px);
+    color: var(--sage-dark);
+    line-height: 1;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.6s forwards;
+  }
+
+  .ampersand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 6vw, 56px);
+    color: var(--gold);
+    font-style: italic;
+    display: block;
+    margin: 4px 0;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.8s forwards;
+  }
+
+  .bride-name {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(56px, 10vw, 88px);
+    color: var(--sage-dark);
+    line-height: 1;
+    opacity: 0;
+    animation: fadeUp 1s ease 1s forwards;
+  }
+
+  .hero-date {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(13px, 2.5vw, 16px);
+    letter-spacing: 3px;
+    color: var(--text-mid);
+    margin-top: 28px;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.2s forwards;
+  }
+
+  .hero-sub {
+    font-family: 'EB Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--text-light);
+    margin-top: 8px;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.4s forwards;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    animation: fadeIn 1s ease 2s forwards;
+    cursor: pointer;
+  }
+  .scroll-hint span {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .scroll-arrow {
+    width: 1px;
+    height: 36px;
+    background: var(--gold-light);
+    position: relative;
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  /* ── INTRO VERSE ── */
+  .verse-section {
+    background: var(--sage-dark);
+    padding: 80px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .verse-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .verse-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 3.5vw, 28px);
+    font-style: italic;
+    color: var(--gold-pale);
+    line-height: 1.8;
+    max-width: 620px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .verse-ref {
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--sage-light);
+    margin-top: 20px;
+    display: block;
+    position: relative;
+  }
+  .verse-icon {
+    width: 36px;
+    height: 36px;
+    margin: 0 auto 24px;
+    fill: var(--gold);
+    opacity: 0.8;
+    position: relative;
+  }
+
+  /* ── DETAILS SECTION ── */
+  .details-section {
+    padding: 100px 24px;
+    background: var(--cream);
+    position: relative;
+  }
+
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: var(--gold);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(44px, 7vw, 68px);
+    color: var(--sage-dark);
+    text-align: center;
+    margin-bottom: 60px;
+    line-height: 1.1;
+  }
+
+  .details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 32px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .detail-card {
+    background: var(--white);
+    border: 1px solid rgba(184, 147, 58, 0.2);
+    border-radius: 4px;
+    padding: 40px 32px;
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .detail-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(90, 110, 63, 0.1);
+  }
+  .detail-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 60px; height: 2px;
+    background: var(--gold);
+  }
+
+  .detail-icon {
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 20px;
+    fill: none;
+    stroke: var(--sage);
+    stroke-width: 1.5;
+  }
+
+  .detail-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .detail-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .detail-sub {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--text-light);
+    line-height: 1.5;
+  }
+
+  /* ── ATTIRE SECTION ── */
+  .attire-section {
+    background: var(--beige);
+    padding: 100px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .attire-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+  }
+
+  .attire-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 24px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .attire-card {
+    text-align: center;
+    padding: 32px 20px;
+    background: rgba(255,255,255,0.6);
+    border: 1px solid rgba(184,147,58,0.15);
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .color-swatch {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    margin: 0 auto 16px;
+    border: 3px solid rgba(184,147,58,0.25);
+    position: relative;
+  }
+  .color-swatch::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.6);
+  }
+
+  .attire-role {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .attire-color {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--text-dark);
+  }
+
+  /* ── NOTE SECTION ── */
+  .note-section {
+    padding: 100px 24px;
+    background: var(--cream);
+  }
+
+  .notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .note-card {
+    padding: 40px 36px;
+    border-left: 3px solid var(--sage-light);
+    background: rgba(255,255,255,0.8);
+  }
+
+  .note-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 40px;
+    color: var(--sage-dark);
+    margin-bottom: 16px;
+    line-height: 1;
+  }
+
+  .note-body {
+    font-family: 'EB Garamond', serif;
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--text-mid);
+  }
+
+  /* ── RECEPTION SECTION ── */
+  .reception-section {
+    background: var(--sage-dark);
+    color: var(--cream);
+    padding: 100px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .reception-section .section-title {
+    color: var(--gold-pale);
+  }
+
+  .reception-section .section-label {
+    color: var(--sage-light);
+  }
+
+  .venue-name {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(20px, 4vw, 28px);
+    color: var(--gold-pale);
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  .venue-address {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: rgba(240, 232, 214, 0.7);
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+
+  .map-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    background: transparent;
+    cursor: pointer;
+  }
+  .map-btn:hover {
+    background: var(--gold);
+    color: var(--sage-dark);
+  }
+
+  /* ── COUNTDOWN ── */
+  .countdown-section {
+    padding: 80px 24px;
+    background: var(--beige);
+    text-align: center;
+  }
+
+  .countdown-grid {
+    display: flex;
+    justify-content: center;
+    gap: clamp(16px, 4vw, 48px);
+    flex-wrap: wrap;
+    margin-top: 40px;
+  }
+
+  .countdown-item {
+    text-align: center;
+    min-width: 80px;
+  }
+
+  .countdown-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 10vw, 80px);
+    font-weight: 300;
+    color: var(--sage-dark);
+    line-height: 1;
+    display: block;
+  }
+
+  .countdown-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-top: 8px;
+    display: block;
+  }
+
+  .countdown-sep {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 60px;
+    color: var(--gold-light);
+    line-height: 1;
+    align-self: flex-start;
+    margin-top: 8px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--sage-dark);
+    padding: 60px 24px 40px;
+    text-align: center;
+  }
+
+  .footer-names {
+    font-family: 'Great Vibes', cursive;
+    font-size: 52px;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .footer-date {
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: var(--sage-light);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .footer-line {
+    width: 80px;
+    height: 1px;
+    background: var(--gold-light);
+    margin: 0 auto 24px;
+    opacity: 0.4;
+  }
+
+  .footer-verse {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: rgba(240,232,214,0.5);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50%       { opacity: 1;   transform: scaleY(1.15); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .attire-grid { grid-template-columns: 1fr 1fr; }
+    .countdown-sep { display: none; }
+    .detail-card { padding: 32px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero">
+  <!-- Corner florals as inline SVG -->
+  <svg class="floral-corner tl" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none">
+      <path d="M10 190 Q10 10 190 10" stroke="#b8933a" stroke-width="0.8" opacity="0.4"/>
+      <circle cx="30" cy="60" r="18" fill="#7a8f5a" opacity="0.5"/>
+      <circle cx="30" cy="60" r="10" fill="#5a6e3f" opacity="0.6"/>
+      <circle cx="60" cy="30" r="14" fill="#7a8f5a" opacity="0.45"/>
+      <circle cx="60" cy="30" r="8" fill="#5a6e3f" opacity="0.55"/>
+      <circle cx="50" cy="90" r="10" fill="#9aad72" opacity="0.4"/>
+      <circle cx="90" cy="50" r="10" fill="#9aad72" opacity="0.4"/>
+      <ellipse cx="20" cy="120" rx="8" ry="16" fill="#7a8f5a" opacity="0.35" transform="rotate(-30 20 120)"/>
+      <ellipse cx="120" cy="20" rx="8" ry="16" fill="#7a8f5a" opacity="0.35" transform="rotate(60 120 20)"/>
+      <ellipse cx="40" cy="40" rx="6" ry="12" fill="#5a6e3f" opacity="0.3" transform="rotate(45 40 40)"/>
+      <!-- small petals -->
+      <circle cx="15" cy="160" r="6" fill="#b8933a" opacity="0.3"/>
+      <circle cx="160" cy="15" r="6" fill="#b8933a" opacity="0.3"/>
+      <path d="M10 140 Q30 130 50 145" stroke="#b8933a" stroke-width="0.6" opacity="0.35" fill="none"/>
+      <path d="M140 10 Q130 30 145 50" stroke="#b8933a" stroke-width="0.6" opacity="0.35" fill="none"/>
+    </g>
+  </svg>
+  <svg class="floral-corner tr" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none">
+      <path d="M10 190 Q10 10 190 10" stroke="#b8933a" stroke-width="0.8" opacity="0.4"/>
+      <circle cx="30" cy="60" r="18" fill="#7a8f5a" opacity="0.5"/>
+      <circle cx="30" cy="60" r="10" fill="#5a6e3f" opacity="0.6"/>
+      <circle cx="60" cy="30" r="14" fill="#7a8f5a" opacity="0.45"/>
+      <circle cx="60" cy="30" r="8" fill="#5a6e3f" opacity="0.55"/>
+      <circle cx="50" cy="90" r="10" fill="#9aad72" opacity="0.4"/>
+      <circle cx="90" cy="50" r="10" fill="#9aad72" opacity="0.4"/>
+      <ellipse cx="20" cy="120" rx="8" ry="16" fill="#7a8f5a" opacity="0.35" transform="rotate(-30 20 120)"/>
+      <ellipse cx="120" cy="20" rx="8" ry="16" fill="#7a8f5a" opacity="0.35" transform="rotate(60 120 20)"/>
+      <circle cx="15" cy="160" r="6" fill="#b8933a" opacity="0.3"/>
+      <circle cx="160" cy="15" r="6" fill="#b8933a" opacity="0.3"/>
+    </g>
+  </svg>
+  <svg class="floral-corner bl" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none">
+      <path d="M10 190 Q10 10 190 10" stroke="#b8933a" stroke-width="0.8" opacity="0.4"/>
+      <circle cx="30" cy="60" r="18" fill="#7a8f5a" opacity="0.5"/>
+      <circle cx="30" cy="60" r="10" fill="#5a6e3f" opacity="0.6"/>
+      <circle cx="60" cy="30" r="14" fill="#7a8f5a" opacity="0.45"/>
+      <circle cx="50" cy="90" r="10" fill="#9aad72" opacity="0.4"/>
+      <circle cx="90" cy="50" r="10" fill="#9aad72" opacity="0.4"/>
+      <ellipse cx="20" cy="120" rx="8" ry="16" fill="#7a8f5a" opacity="0.35" transform="rotate(-30 20 120)"/>
+      <circle cx="15" cy="160" r="6" fill="#b8933a" opacity="0.3"/>
+    </g>
+  </svg>
+  <svg class="floral-corner br" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none">
+      <path d="M10 190 Q10 10 190 10" stroke="#b8933a" stroke-width="0.8" opacity="0.4"/>
+      <circle cx="30" cy="60" r="18" fill="#7a8f5a" opacity="0.5"/>
+      <circle cx="60" cy="30" r="14" fill="#7a8f5a" opacity="0.45"/>
+      <circle cx="50" cy="90" r="10" fill="#9aad72" opacity="0.4"/>
+      <circle cx="90" cy="50" r="10" fill="#9aad72" opacity="0.4"/>
+      <ellipse cx="120" cy="20" rx="8" ry="16" fill="#7a8f5a" opacity="0.35" transform="rotate(60 120 20)"/>
+      <circle cx="160" cy="15" r="6" fill="#b8933a" opacity="0.3"/>
+    </g>
+  </svg>
+
+  <div class="hero-border"></div>
+
+  <div class="hero-content">
+    <p class="hero-tag">Together with their families</p>
+
+    <div class="divider-leaf">
+      <span class="line"></span>
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6 8 4 14 12 22C20 14 18 8 12 2Z"/></svg>
+      <span class="line"></span>
+    </div>
+
+    <div class="groom-name">John Phillip C. Bebora</div>
+    <span class="ampersand">&amp;</span>
+    <div class="bride-name">Hazil G. Penes</div>
+
+    <div class="divider-leaf" style="animation-delay: 1.1s;">
+      <span class="line"></span>
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6 8 4 14 12 22C20 14 18 8 12 2Z"/></svg>
+      <span class="line"></span>
+    </div>
+
+    <p class="hero-date">JUNE 26, 2026 &nbsp;·&nbsp; 2:00 IN THE AFTERNOON</p>
+    <p class="hero-sub">invite you to celebrate their marriage</p>
+  </div>
+
+  <div class="scroll-hint" onclick="document.querySelector('.verse-section').scrollIntoView({behavior:'smooth'})">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ══════════ VERSE ══════════ -->
+<section class="verse-section">
+  <!-- Cross / monstrance icon -->
+  <svg class="verse-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="20" cy="20" r="9" fill="none" stroke="#b8933a" stroke-width="1.5"/>
+    <circle cx="20" cy="20" r="4" fill="#b8933a" opacity="0.8"/>
+    <line x1="20" y1="5" x2="20" y2="35" stroke="#b8933a" stroke-width="1.5"/>
+    <line x1="12" y1="13" x2="28" y2="13" stroke="#b8933a" stroke-width="1.5"/>
+  </svg>
+
+  <p class="verse-text">
+    "And over all these virtues put on love,<br>
+    which binds them all together in perfect unity."
+  </p>
+  <span class="verse-ref">Colossians 3:14</span>
+</section>
+
+<!-- ══════════ DETAILS ══════════ -->
+<section class="details-section">
+  <p class="section-label reveal">Wedding Details</p>
+  <h2 class="section-title reveal">The Celebration</h2>
+
+  <div class="details-grid">
+    <div class="detail-card reveal">
+      <!-- Calendar icon -->
+      <svg class="detail-icon" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="10" width="32" height="28" rx="3"/>
+        <line x1="6" y1="18" x2="38" y2="18"/>
+        <line x1="15" y1="6" x2="15" y2="14"/>
+        <line x1="29" y1="6" x2="29" y2="14"/>
+        <rect x="14" y="24" width="6" height="5" rx="1"/>
+        <rect x="24" y="24" width="6" height="5" rx="1"/>
+      </svg>
+      <p class="detail-label">Date & Time</p>
+      <p class="detail-main">Friday, June 26<br>2026</p>
+      <p class="detail-sub">2:00 in the Afternoon</p>
+    </div>
+
+    <div class="detail-card reveal">
+      <!-- Church / ceremony icon -->
+      <svg class="detail-icon" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22 6 L22 14"/>
+        <path d="M18 10 L26 10"/>
+        <path d="M10 38 L10 22 Q22 14 34 22 L34 38"/>
+        <rect x="18" y="28" width="8" height="10"/>
+        <path d="M14 22 L22 16 L30 22"/>
+      </svg>
+      <p class="detail-label">Holy Ceremony</p>
+      <p class="detail-main">Wedding Mass</p>
+      <p class="detail-sub">St. John The Baptist Church</p>
+    </div>
+
+    <div class="detail-card reveal">
+      <!-- Location pin icon -->
+      <svg class="detail-icon" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22 6C16 6 10 12 10 19C10 28 22 38 22 38C22 38 34 28 34 19C34 12 28 6 22 6Z"/>
+        <circle cx="22" cy="19" r="5"/>
+      </svg>
+      <p class="detail-label">Reception Venue</p>
+      <p class="detail-main">RJ3 Traveller's Dine</p>
+      <p class="detail-sub">Purok Sibuyas, Barangay Gredu<br>Panabo City</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ COUNTDOWN ══════════ -->
+<section class="countdown-section">
+  <p class="section-label reveal">Counting Down</p>
+  <h2 class="section-title reveal" style="font-size: clamp(40px, 6vw, 60px);">Days Until Forever</h2>
+
+  <div class="countdown-grid reveal">
+    <div class="countdown-item">
+      <span class="countdown-num" id="cd-days">—</span>
+      <span class="countdown-label">Days</span>
+    </div>
+    <span class="countdown-sep">·</span>
+    <div class="countdown-item">
+      <span class="countdown-num" id="cd-hours">—</span>
+      <span class="countdown-label">Hours</span>
+    </div>
+    <span class="countdown-sep">·</span>
+    <div class="countdown-item">
+      <span class="countdown-num" id="cd-mins">—</span>
+      <span class="countdown-label">Minutes</span>
+    </div>
+    <span class="countdown-sep">·</span>
+    <div class="countdown-item">
+      <span class="countdown-num" id="cd-secs">—</span>
+      <span class="countdown-label">Seconds</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ATTIRE ══════════ -->
+<section class="attire-section">
+  <p class="section-label reveal">Dress Code</p>
+  <h2 class="section-title reveal">Attire Guide</h2>
+
+  <p class="reveal" style="text-align:center; font-family:'EB Garamond',serif; font-style:italic; font-size:19px; color:var(--text-mid); margin-bottom:48px;">
+    Formal and Comfortable. We kindly request our guests<br>to wear these colors on our special day.
+  </p>
+
+  <div class="attire-grid">
+    <div class="attire-card reveal">
+      <div class="color-swatch" style="background:#ffffff;"></div>
+      <p class="attire-role">Sponsors</p>
+      <p class="attire-color">White</p>
+    </div>
+    <div class="attire-card reveal">
+      <div class="color-swatch" style="background:#f5e6c8;"></div>
+      <p class="attire-role">Parents</p>
+      <p class="attire-color">Beige</p>
+    </div>
+    <div class="attire-card reveal">
+      <div class="color-swatch" style="background:#f5e6a3;"></div>
+      <p class="attire-role">Entourage</p>
+      <p class="attire-color">Pastel Yellow</p>
+    </div>
+    <div class="attire-card reveal">
+      <div class="color-swatch" style="background:linear-gradient(135deg,#ffffff 33%,#f5e6a3 33%,#f5e6a3 66%,#f5e6c8 66%);"></div>
+      <p class="attire-role">Guests</p>
+      <p class="attire-color">White · Pastel Yellow · Beige</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ NOTES ══════════ -->
+<section class="note-section">
+  <p class="section-label reveal">Kind Notes</p>
+  <h2 class="section-title reveal">From Our Hearts</h2>
+
+  <div class="notes-grid">
+    
+    <div class="note-card reveal">
+      <h3 class="note-title">A Note on Gifts</h3>
+      <p class="note-body">
+        With all that we have, we've been truly blessed. Your Presence and Prayer are all that we request — but if you desire to give nonetheless, monetary is the one we humbly suggest.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ RECEPTION ══════════ -->
+<section class="reception-section">
+  <p class="section-label reveal">Join Us After</p>
+  <h2 class="section-title reveal">Reception</h2>
+
+  <p class="venue-name reveal">RJ3 Traveller's Dine</p>
+  <p class="venue-address reveal">Purok Sibuyas, Barangay Gredu<br>Panabo City, Davao del Norte</p>
+
+  <a class="map-btn reveal" href="https://www.google.com/maps/search/RJ3+Traveller%27s+Dine+Panabo+City" target="_blank" rel="noopener">
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+      <circle cx="12" cy="9" r="2.5"/>
+    </svg>
+    View on Map
+  </a>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <p class="footer-names">John &amp; Hazil</p>
+  <p class="footer-date">June 26, 2026 · Panabo City</p>
+  <div class="footer-line"></div>
+  <p class="footer-verse">"What God has joined together, let no one separate." — Mark 10:9</p>
+</footer>
+
+<script>
+  // Countdown
+  function updateCountdown() {
+    const wedding = new Date('2026-06-26T14:00:00');
+    const now = new Date();
+    const diff = wedding - now;
+
+    if (diff <= 0) {
+      document.getElementById('cd-days').textContent = '0';
+      document.getElementById('cd-hours').textContent = '0';
+      document.getElementById('cd-mins').textContent = '0';
+      document.getElementById('cd-secs').textContent = '0';
+      return;
+    }
+
+    const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs  = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById('cd-days').textContent  = String(days).padStart(2, '0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('cd-mins').textContent  = String(mins).padStart(2, '0');
+    document.getElementById('cd-secs').textContent  = String(secs).padStart(2, '0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
