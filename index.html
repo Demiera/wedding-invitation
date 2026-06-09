@@ -465,6 +465,153 @@
   }
   .map-btn:hover { background: var(--gold); color: var(--sage-dark); }
 
+  /* ── MAP EMBED ── */
+  .map-container {
+    margin: 40px auto 0;
+    max-width: 680px;
+    width: 100%;
+    border: 1px solid rgba(184,147,58,0.35);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  }
+  .map-label {
+    background: rgba(61,78,40,0.85);
+    color: var(--gold-light);
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(184,147,58,0.2);
+  }
+  .map-iframe {
+    width: 100%;
+    height: 320px;
+    border: none;
+    display: block;
+    filter: none;
+  }
+  .map-container .map-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: rgba(61,78,40,0.7);
+    border: none;
+    border-top: 1px solid rgba(184,147,58,0.2);
+    border-radius: 0;
+    font-size: 10px;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+  }
+  .map-container .map-btn:hover {
+    background: var(--gold);
+    color: var(--sage-dark);
+  }
+
+  /* ── CLICKABLE DETAIL CARDS ── */
+  .church-card, .reception-card {
+    cursor: pointer;
+    position: relative;
+  }
+  .church-card:hover, .reception-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 48px rgba(90,110,63,0.18);
+    border-color: rgba(184,147,58,0.5);
+  }
+  .card-map-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 14px;
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.8;
+  }
+
+  /* ── CHURCH MAP POPUP ── */
+  .card-map-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(620px, 92vw);
+    background: var(--white);
+    border: 1px solid rgba(184,147,58,0.4);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.4);
+    z-index: 9999;
+  }
+  .card-map-popup.popup-open {
+    display: block;
+  }
+  .card-map-popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 9998;
+    backdrop-filter: blur(4px);
+  }
+  .card-map-popup-overlay.popup-open {
+    display: block;
+  }
+  .card-map-popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--sage-dark);
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--gold-light);
+    text-transform: uppercase;
+  }
+  .popup-close-btn {
+    background: none;
+    border: none;
+    color: var(--gold-light);
+    font-size: 14px;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 3px;
+    transition: background 0.2s;
+  }
+  .popup-close-btn:hover { background: rgba(255,255,255,0.15); }
+  .card-map-iframe {
+    width: 100%;
+    height: 340px;
+    border: none;
+    display: block;
+  }
+  .card-map-open-btn {
+    display: block;
+    text-align: center;
+    padding: 11px;
+    background: var(--sage-dark);
+    color: var(--gold-light);
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-top: 1px solid rgba(184,147,58,0.2);
+    transition: background 0.2s, color 0.2s;
+  }
+  .card-map-open-btn:hover { background: var(--gold); color: var(--sage-dark); }
+
   /* ── COUNTDOWN ── */
   .countdown-section {
     padding: 80px 24px;
@@ -1496,7 +1643,7 @@
       <p class="detail-sub">2:00 in the Afternoon</p>
     </div>
 
-    <div class="detail-card reveal">
+    <div class="detail-card reveal church-card" onclick="toggleChurchMap()">
       <svg class="detail-icon" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
         <path d="M22 6 L22 14"/>
         <path d="M18 10 L26 10"/>
@@ -1507,9 +1654,13 @@
       <p class="detail-label">Holy Ceremony</p>
       <p class="detail-main">Wedding Mass</p>
       <p class="detail-sub">St. John The Baptist Church</p>
+      <span class="card-map-hint">
+        <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        Tap to view location
+      </span>
     </div>
 
-    <div class="detail-card reveal">
+    <div class="detail-card reveal reception-card" onclick="document.getElementById('reception-section').scrollIntoView({behavior:'smooth'})">
       <svg class="detail-icon" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
         <path d="M22 6C16 6 10 12 10 19C10 28 22 38 22 38C22 38 34 28 34 19C34 12 28 6 22 6Z"/>
         <circle cx="22" cy="19" r="5"/>
@@ -1517,6 +1668,10 @@
       <p class="detail-label">Reception Venue</p>
       <p class="detail-main">RJ3 Traveller's Dine</p>
       <p class="detail-sub">Purok Sibuyas, Barangay Gredu<br>Panabo City</p>
+      <span class="card-map-hint">
+        <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+        Tap to see venue & map
+      </span>
     </div>
   </div>
 </section>
@@ -1599,20 +1754,38 @@
 </section>
 
 <!-- ══════════ RECEPTION ══════════ -->
-<section class="reception-section">
+<section class="reception-section" id="reception-section">
   <p class="section-label reveal">Join Us After</p>
   <h2 class="section-title reveal">Reception</h2>
 
   <p class="venue-name reveal">RJ3 Traveller's Dine</p>
   <p class="venue-address reveal">Purok Sibuyas, Barangay Gredu<br>Panabo City, Davao del Norte</p>
 
-  <a class="map-btn reveal" href="https://www.google.com/maps/search/RJ3+Traveller%27s+Dine+Panabo+City" target="_blank" rel="noopener">
-    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-      <circle cx="12" cy="9" r="2.5"/>
-    </svg>
-    View on Map
-  </a>
+  <!-- Interactive draggable map -->
+  <div class="map-container reveal">
+    <div class="map-label">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+        <circle cx="12" cy="9" r="2.5"/>
+      </svg>
+      Drag to explore · Scroll to zoom
+    </div>
+    <iframe
+      src="https://maps.google.com/maps?q=RJ3+Traveller%27s+Dine+Panabo+City+Davao+del+Norte&output=embed&z=15"
+      class="map-iframe"
+      allowfullscreen
+      loading="lazy"
+      title="Reception Venue Map">
+    </iframe>
+    <a class="map-btn" href="https://www.google.com/maps/search/RJ3+Traveller%27s+Dine+Panabo+City+Davao+del+Norte" target="_blank" rel="noopener">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+        <polyline points="15 3 21 3 21 9"/>
+        <line x1="10" y1="14" x2="21" y2="3"/>
+      </svg>
+      Open in Google Maps
+    </a>
+  </div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -1769,6 +1942,25 @@
   <p class="footer-verse">"What God has joined together, let no one separate." — Mark 10:9</p>
 </footer>
 
+<!-- Church Map Overlay -->
+<div class="card-map-popup-overlay" id="churchMapOverlay" onclick="toggleChurchMap()"></div>
+
+<!-- Church Map Popup -->
+<div class="card-map-popup" id="churchMapPopup">
+  <div class="card-map-popup-header">
+    <span>St. John The Baptist Church</span>
+    <button onclick="toggleChurchMap()" class="popup-close-btn">✕</button>
+  </div>
+  <iframe
+    src="https://maps.google.com/maps?q=7.2628983,125.6640447&output=embed&z=17"
+    class="card-map-iframe"
+    allowfullscreen
+    loading="lazy"
+    title="Church Location">
+  </iframe>
+  <a class="card-map-open-btn" href="https://www.google.com/maps?q=7.2628983,125.6640447" target="_blank" rel="noopener">Open in Google Maps ↗</a>
+</div>
+
 <!-- ══════════ THANK YOU OVERLAY ══════════ -->
 <div id="thankYouOverlay">
   <div class="ty-inner">
@@ -1785,6 +1977,20 @@
 </div>
 
 <script>
+  // Church map popup toggle
+  function toggleChurchMap() {
+    const popup = document.getElementById('churchMapPopup');
+    const overlay = document.getElementById('churchMapOverlay');
+    const isOpen = popup.classList.contains('popup-open');
+    if (isOpen) {
+      popup.classList.remove('popup-open');
+      overlay.classList.remove('popup-open');
+    } else {
+      popup.classList.add('popup-open');
+      overlay.classList.add('popup-open');
+    }
+  }
+
   // Countdown
   function updateCountdown() {
     const wedding = new Date('2026-06-26T14:00:00');
@@ -1866,7 +2072,7 @@
     formData.append('_captcha', 'false');
     formData.append('_template', 'box');
 
-    fetch('https://formsubmit.co/ajax/jpbebora@gmail.com', {
+    fetch('https://formsubmit.co/ajax/353ca3c40cfb00f4ec196d6340cb71ab', {
       method: 'POST',
       body: formData
     })
