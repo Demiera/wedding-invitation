@@ -1493,6 +1493,7 @@
 
   /* Enhanced section backgrounds */
   .countdown-section { position: relative; overflow: hidden; }
+  
   .note-section { position: relative; overflow: hidden; }
   .footer { position: relative; overflow: hidden; }
 
@@ -1502,4 +1503,118 @@
     .countdown-sep { display: none; }
     .detail-card { padding: 32px 20px; }
     .letter-card { padding: 24px 20px 28px; }
+    .venue-guide-iframe { height: 260px; }
+  }
+
+  /* ── VENUE NAME WRAP & FLOOR BADGE ── */
+  .venue-name-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .floor-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--sage-dark);
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    padding: 6px 18px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 10px rgba(184,147,58,0.45), 0 0 0 2px rgba(184,147,58,0.2);
+  }
+
+  /* ── VENUE ENTRANCE GUIDE ── */
+  .venue-guide {
+    margin: 40px auto 0;
+    max-width: 680px;
+    width: 100%;
+    border: 1px solid rgba(184,147,58,0.4);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    background: rgba(45,60,28,0.5);
+  }
+
+  .venue-guide-header {
+    background: rgba(61,78,40,0.9);
+    color: var(--gold-light);
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(184,147,58,0.2);
+  }
+
+  .venue-guide-header svg {
+    stroke: var(--gold-light);
+    flex-shrink: 0;
+  }
+
+  .venue-guide-desc {
+    font-family: 'EB Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: rgba(240, 232, 214, 0.85);
+    text-align: center;
+    padding: 16px 24px 12px;
+    line-height: 1.7;
+  }
+
+  .venue-guide-desc strong {
+    font-style: normal;
+    color: var(--gold-light);
+    letter-spacing: 1px;
+  }
+
+  .venue-guide-iframe {
+    width: 100%;
+    height: 360px;
+    border: none;
+    display: block;
+  }
+
+  .venue-guide-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(61,78,40,0.8);
+    color: var(--gold-light);
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border-top: 1px solid rgba(184,147,58,0.2);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .venue-guide-note svg {
+    stroke: var(--gold-light);
+    flex-shrink: 0;
+  }
+
+  .floor-instruction {
+    background: var(--gold);
+    color: var(--sage-dark);
+    font-size: 11px;
+    letter-spacing: 3px;
+    font-weight: 700;
+    border-top: none;
+    padding: 12px 20px;
+  }
+
+  .floor-instruction svg {
+    stroke: var(--sage-dark);
   }
