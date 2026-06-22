@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>John & Hazil — Wedding Invitation</title>
+<title>John & Hazil — Wedding Invitation / Reception</title>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z17V6HNKLV"></script>
 <script>
@@ -261,6 +261,12 @@
   <p class="section-label reveal">Join Us After</p>
   <h2 class="section-title reveal">Reception</h2>
 
+  <div class="reception-endpoint reveal">
+    <span class="reception-endpoint-tag">John &amp; Hazil — Wedding Invitation</span>
+    <span class="reception-endpoint-sep">·</span>
+    <span class="reception-endpoint-sub">Reception</span>
+  </div>
+
   <div class="venue-name-wrap reveal">
     <p class="venue-name">CN Gas Station Building</p>
     <span class="floor-badge">3RD FLOOR</span>
@@ -274,23 +280,32 @@
         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
         <circle cx="12" cy="9" r="2.5"/>
       </svg>
-      Drag to explore · Scroll to zoom
+      <span id="mapLabelText">Drag to explore · Scroll to zoom</span>
     </div>
     <iframe
-      src="https://maps.google.com/maps?q=7.304958,125.6758886&output=embed&z=18"
+      id="mapIframe"
+      src="https://maps.google.com/maps?daddr=7.304958,125.6758886&output=embed&z=16"
       class="map-iframe"
       allowfullscreen
       loading="lazy"
       title="CN Gas Station Reception Location">
     </iframe>
-    <a class="map-btn" href="https://www.google.com/maps/place/CN+Gas+Station/@7.3050558,125.6759,68m/data=!3m1!1e3!4m6!3m5!1s0x32f9450578b74ea5:0xa1cc470501bdf397!8m2!3d7.304958!4d125.6758886!16s%2Fg%2F11sbdkcpjs?entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-        <polyline points="15 3 21 3 21 9"/>
-        <line x1="10" y1="14" x2="21" y2="3"/>
-      </svg>
-      Open in Google Maps
-    </a>
+    <div class="map-btn-group">
+      <button id="dirBtn" class="map-btn" onclick="getDirections()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+          <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+        </svg>
+        Get Directions
+      </button>
+      <a id="openMapsBtn" class="map-btn" href="https://www.google.com/maps/dir/?api=1&destination=7.304958,125.6758886&travelmode=driving" target="_blank" rel="noopener">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+        Open in Google Maps
+      </a>
+    </div>
   </div>
 
   <!-- Venue Entrance Guide -->

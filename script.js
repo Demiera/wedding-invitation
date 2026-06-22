@@ -181,6 +181,50 @@
 
 
 
+  // ── GET DIRECTIONS (geolocation → route in iframe + Maps link) ──
+  function getDirections() {
+    const btn = document.getElementById('dirBtn');
+    const dest = '7.304958,125.6758886';
+
+    if (!navigator.geolocation) {
+      // No geolocation support — just open Google Maps directly
+      window.open('https://www.google.com/maps/dir/?api=1&destination=' + dest + '&travelmode=driving', '_blank');
+      return;
+    }
+
+    const originalHTML = btn.innerHTML;
+    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Locating…';
+    btn.disabled = true;
+
+    navigator.geolocation.getCurrentPosition(
+      function(pos) {
+        const origin = pos.coords.latitude + ',' + pos.coords.longitude;
+
+        // Update iframe to show the route
+        document.getElementById('mapIframe').src =
+          'https://maps.google.com/maps?saddr=' + origin + '&daddr=' + dest + '&output=embed&z=13';
+
+        // Update label text
+        document.getElementById('mapLabelText').textContent = 'Route to venue · Scroll to zoom';
+
+        // Update "Open in Google Maps" link to include your location as origin
+        document.getElementById('openMapsBtn').href =
+          'https://www.google.com/maps/dir/?api=1&origin=' + origin + '&destination=' + dest + '&travelmode=driving';
+
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Route Loaded';
+        btn.style.background = 'rgba(90,110,63,0.85)';
+        btn.style.color = '#f5e6a3';
+      },
+      function() {
+        // Permission denied or timeout — fall back to Google Maps
+        window.open('https://www.google.com/maps/dir/?api=1&destination=' + dest + '&travelmode=driving', '_blank');
+        btn.innerHTML = originalHTML;
+        btn.disabled = false;
+      },
+      { timeout: 8000 }
+    );
+  }
+
   // ── BACKGROUND PARTICLE ANIMATIONS ──
   function createParticles() {
     const configs = [

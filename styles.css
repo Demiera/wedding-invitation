@@ -505,6 +505,19 @@
     background: var(--gold);
     color: var(--sage-dark);
   }
+  /* Two-button footer row */
+  .map-btn-group {
+    display: flex;
+    border-top: 1px solid rgba(184,147,58,0.2);
+  }
+  .map-btn-group .map-btn {
+    flex: 1;
+    border-top: none;
+    width: auto;
+  }
+  .map-btn-group .map-btn:first-child {
+    border-right: 1px solid rgba(184,147,58,0.2);
+  }
 
   /* ── CLICKABLE DETAIL CARDS ── */
   .church-card, .reception-card {
@@ -1618,3 +1631,31 @@
   .floor-instruction svg {
     stroke: var(--sage-dark);
   }
+/* ── Reception Endpoint Label ── */
+.reception-endpoint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.reception-endpoint-tag {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+.reception-endpoint-sep {
+  color: var(--gold-light);
+  font-size: 14px;
+  opacity: 0.6;
+}
+.reception-endpoint-sub {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--sage-light);
+  text-transform: uppercase;
+}
